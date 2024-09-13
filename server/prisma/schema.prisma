@@ -21,3 +21,9 @@ model Tarefa {
   dataTermino DateTime?
   prioridade  Prioridade @default(BAIXA)
 }
+
+model Membro {
+  id    String @id @deafult(uuid())
+  email String @unique
+  nome  String
+}
