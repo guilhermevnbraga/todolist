@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "server": "nodemon --env-file .env server/index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

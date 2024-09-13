@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Prioridade {
+  ALTA
+  MEDIA
+  BAIXA
+}
+
+model Tarefa {
+  id          String     @id @default(uuid())
+  nome        String     @db.VarChar(50)
+  descricao   String?    @db.VarChar(140)
+  finalizada  Boolean    @default(false)
+  dataTermino DateTime?
+  prioridade  Prioridade @default(BAIXA)
+}
