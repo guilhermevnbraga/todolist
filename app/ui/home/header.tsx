@@ -31,7 +31,7 @@ export default function Header({ name }: { name: string }) {
                         </button>
                     </li>
                 </ul>
-                <ul className="flex flex-col w-[10%] justify-end">
+                <ul className="flex flex-col grow justify-end">
                     <li>
                         <button
                             className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
