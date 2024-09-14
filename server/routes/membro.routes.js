@@ -3,6 +3,6 @@ import { createMembro } from '../controllers/membroController.js';
 
 const membroRouter = express.Router();
 
-membroRouter.post('/criar', createMembro);
+membroRouter.post('/create', createMembro);
 
 export default membroRouter;

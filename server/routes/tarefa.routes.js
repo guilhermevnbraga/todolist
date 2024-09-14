@@ -3,6 +3,6 @@ import { createTarefa } from '../controllers/tarefaController.js';
 
 const tarefaRouter = express.Router();
 
-tarefaRouter.post('/criar', createTarefa);
+tarefaRouter.post('/create', createTarefa);
 
 export default tarefaRouter;
