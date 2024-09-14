@@ -18,7 +18,7 @@ export default function Header({ name }: { name: string }) {
                         <Link className="hover:underline" href="/tarefas/lista">Lista de Tarefas</Link>
                     </li>
                     <li>
-                        <Link className="hover:underline" href="/tarefas/cadastro">Cadastrar Tarefa</Link>
+                        <Link className="hover:underline" href="/tarefas/cadastro">Registrar Novo Membro</Link>
                     </li>
                 </ul>
                 <ul className="flex flex-col w-[10%] justify-end">
@@ -31,10 +31,9 @@ export default function Header({ name }: { name: string }) {
                         >{`Olá ${name}!`}</button>
                     </li>
                     {open && (
-                        <li className="absolute top-12 right-0 text-sm font-bold bg-sky-700 w-[6%] p-3 text-center">
+                        <li className="absolute top-12 right-0 font-bold bg-sky-700 w-[6%] p-2 text-center">
                             <nav className="flex flex-col">
                                 <ul>
-                                    <li className="mb-2">Cadastro</li>
                                     <li
                                         onClick={() => signOut()}
                                         className="hover:cursor-pointer"
