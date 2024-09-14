@@ -170,13 +170,13 @@ export default function Page() {
                     </Label>
                     <button
                         type="submit"
-                        className="font-bold w-full bg-blue-500 text-white p-2 rounded mt-2 focus:outline-none"
+                        className="font-bold w-full bg-sky-500 text-white p-2 rounded mt-2 focus:outline-none"
                     >
                         Registrar
                     </button>
                 </form>
                 <Link
-                    href={"/login"}
+                    href={"/"}
                     className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500"
                 >
                     Já possui uma conta?

@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
     pages: {
-        signIn: "/login",
+        signIn: "/",
     },
     session: {
         strategy: "jwt",
