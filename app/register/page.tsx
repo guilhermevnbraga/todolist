@@ -8,10 +8,39 @@ export default function Page() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/membro/create`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name, email }),
+                }
+            );
+
+            if (!response.ok) {
+                throw await response.json();
+            }
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <main className="flex items-center justify-center min-h-screen">
             <div className="flex flex-col items-center justify-center h-full w-full">
-                <form className="flex flex-col h-2/3 w-1/3 p-6">
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col h-2/3 w-1/3 p-6"
+                >
                     <h1 className="font-bold mb-12 w-full text-center text-3xl">
                         Crie sua conta e organize suas tarefas!
                     </h1>
@@ -21,7 +50,25 @@ export default function Page() {
                             name="name"
                             pattern=".{5,50}"
                             placeholder="Escreva o seu nome"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                e.target.setCustomValidity("");
+                            }}
+                            onInvalid={(e) => {
+                                const target = e.target as HTMLInputElement;
+
+                                if (target.validity.valueMissing) {
+                                    target.setCustomValidity(
+                                        "Este campo é obrigatório."
+                                    );
+                                } else if (target.validity.patternMismatch) {
+                                    target.setCustomValidity(
+                                        "O nome deve ter entre 5 e 50 caracteres."
+                                    );
+                                } else {
+                                    target.setCustomValidity("");
+                                }
+                            }}
                             required
                         />
                     </Label>
@@ -30,13 +77,31 @@ export default function Page() {
                             type="email"
                             name="email"
                             placeholder="Digite seu email"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                e.target.setCustomValidity("");
+                            }}
+                            onInvalid={(e) => {
+                                const target = e.target as HTMLInputElement;
+
+                                if (target.validity.valueMissing) {
+                                    target.setCustomValidity(
+                                        "Este campo é obrigatório."
+                                    );
+                                } else if (target.validity.typeMismatch) {
+                                    target.setCustomValidity(
+                                        "Por favor, insira um email válido."
+                                    );
+                                } else {
+                                    target.setCustomValidity("");
+                                }
+                            }}
                             required
                         />
                     </Label>
                     <button
                         type="submit"
-                        className="font-bold w-full bg-blue-500 text-white p-2 rounded mt-2"
+                        className="font-bold w-full bg-blue-500 text-white p-2 rounded mt-2 focus:outline-none"
                     >
                         Registrar
                     </button>

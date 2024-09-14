@@ -1,14 +1,21 @@
 import express from 'express';
+import cors from 'cors';
 import tarefaRouter from './routes/tarefa.routes.js';
 import membroRouter from './routes/membro.routes.js';
 
 const app = express();
 
+const corsOptions = {
+  origin: process.env.ORIGIN,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/tarefa', tarefaRouter);
 app.use('/membro', membroRouter);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
