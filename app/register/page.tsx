@@ -1,7 +1,8 @@
 "use client";
 
-import Input from "../ui/register/Input";
-import Label from "../ui/register/Label";
+import Input from "../ui/account/Input";
+import Label from "../ui/account/Label";
+import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
@@ -170,6 +171,12 @@ export default function Page() {
                         Registrar
                     </button>
                 </form>
+                <Link
+                    href={"/login"}
+                    className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500"
+                >
+                    Já possui uma conta?
+                </Link>
             </div>
         </main>
     );
