@@ -4,12 +4,14 @@ import Input from "../ui/account/Input";
 import Label from "../ui/account/Label";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function Page() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,6 +44,8 @@ export default function Page() {
                 password,
                 redirect: false,
             });
+
+            router.push("/home");
         } catch (error) {
             console.error(error);
         }

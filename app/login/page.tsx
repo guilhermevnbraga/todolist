@@ -4,12 +4,14 @@ import Input from "../ui/account/Input";
 import Label from "../ui/account/Label";
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function Page() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const errorRef = useRef<HTMLSpanElement>(null);
+    const router = useRouter();
 
     return (
         <main className="flex items-center justify-center min-h-screen">
@@ -25,9 +27,15 @@ export default function Page() {
                                 redirect: false,
                             });
 
-                            if (errorRef.current) {
-                                if (result?.error) errorRef.current.textContent = 'Email ou senha inválidos.';
-                                else errorRef.current.textContent = "";
+                            if (result?.error) {
+                                if (errorRef.current) {
+                                    errorRef.current.textContent = "Email ou senha inválidos.";
+                                }
+                            } else {
+                                if (errorRef.current) {
+                                    errorRef.current.textContent = "";
+                                }
+                                router.push('/home');
                             }
                         } catch (error) {
                             console.error(error);
