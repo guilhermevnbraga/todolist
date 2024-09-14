@@ -4,7 +4,9 @@ const prisma = new PrismaClient().$extends({
     query: {
         tarefa: {
             async create({ args, query }) {
-                const { nome, descricao, prioridade } = args.data;
+                const { membroId, nome, descricao, prioridade } = args.data;
+
+                if (!membroId) throw new Error("O parâmetro MembroId é obrigatório");
 
                 if (!nome) throw new Error("O parâmetro Nome é obrigatório");
 
