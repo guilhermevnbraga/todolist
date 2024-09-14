@@ -28,5 +28,6 @@ model Membro {
   id      String @id @default(uuid())
   email   String @unique
   nome    String
+  senha   String
   tarefas Tarefa[]
 }

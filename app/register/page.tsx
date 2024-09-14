@@ -3,10 +3,12 @@
 import Input from "../ui/register/Input";
 import Label from "../ui/register/Label";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,7 +21,11 @@ export default function Page() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ name, email }),
+                    body: JSON.stringify({
+                        nome: name,
+                        email,
+                        senha: password,
+                    }),
                 }
             );
 
@@ -29,6 +35,12 @@ export default function Page() {
 
             const data = await response.json();
             console.log(data);
+
+            await signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+            });
         } catch (error) {
             console.error(error);
         }
@@ -91,6 +103,58 @@ export default function Page() {
                                 } else if (target.validity.typeMismatch) {
                                     target.setCustomValidity(
                                         "Por favor, insira um email válido."
+                                    );
+                                } else {
+                                    target.setCustomValidity("");
+                                }
+                            }}
+                            required
+                        />
+                    </Label>
+                    <Label label="Senha:">
+                        <Input
+                            type="password"
+                            name="password"
+                            pattern=".{3,}"
+                            placeholder="Crie uma senha"
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                e.target.setCustomValidity("");
+                            }}
+                            onInvalid={(e) => {
+                                const target = e.target as HTMLInputElement;
+
+                                if (target.validity.valueMissing) {
+                                    target.setCustomValidity(
+                                        "Este campo é obrigatório."
+                                    );
+                                } else if (target.validity.patternMismatch) {
+                                    target.setCustomValidity(
+                                        "A senha deve ter no mínimo 3 caracteres."
+                                    );
+                                } else {
+                                    target.setCustomValidity("");
+                                }
+                            }}
+                            required
+                        />
+                    </Label>
+                    <Label label="Confirme a Senha:">
+                        <Input
+                            type="password"
+                            name="cpassword"
+                            pattern={password}
+                            placeholder="Confirme sua senha"
+                            onInvalid={(e) => {
+                                const target = e.target as HTMLInputElement;
+
+                                if (target.validity.valueMissing) {
+                                    target.setCustomValidity(
+                                        "Este campo é obrigatório."
+                                    );
+                                } else if (target.validity.patternMismatch) {
+                                    target.setCustomValidity(
+                                        "As senhas não coincidem."
                                     );
                                 } else {
                                     target.setCustomValidity("");
