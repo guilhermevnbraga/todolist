@@ -3,6 +3,7 @@
 import Input from "../ui/register/Input";
 import Label from "../ui/register/Label";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
     const [name, setName] = useState("");
@@ -34,6 +35,12 @@ export default function Page() {
 
             const data = await response.json();
             console.log(data);
+
+            await signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+            });
         } catch (error) {
             console.error(error);
         }
