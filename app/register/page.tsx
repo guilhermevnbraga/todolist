@@ -36,6 +36,31 @@ export default function Page() {
                             required
                         />
                     </Label>
+<<<<<<< HEAD
+=======
+                    <Label label="Senha:">
+                        <Input
+                            type="password"
+                            name="password"
+                            pattern=".{3,}"
+                            title="A senha precisa ter no mínimo 3 caracteres"
+                            placeholder="Crie uma senha"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </Label>
+                    <Label label="Confirme a Senha:">
+                        <Input
+                            type="password"
+                            name="cpassword"
+                            pattern={password}
+                            title="As senhas não coincidem"
+                            placeholder="Confirme sua senha"
+                            onChange={(e) => setCPassword(e.target.value)}
+                            required
+                        />
+                    </Label>
+>>>>>>> 1b03e3381081a9a48fbc532be72ca6771beaea55
                     <button
                         type="submit"
                         className="font-bold w-full bg-blue-500 text-white p-2 rounded mt-2"
@@ -43,6 +68,10 @@ export default function Page() {
                         Registrar
                     </button>
                 </form>
+<<<<<<< HEAD
+=======
+                {/*<button className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500">Already have an account?</button> */}
+>>>>>>> 1b03e3381081a9a48fbc532be72ca6771beaea55
             </div>
         </main>
     );
