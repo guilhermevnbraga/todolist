@@ -62,10 +62,11 @@ const prisma = new PrismaClient().$extends({
                     throw new Error(
                         "O parâmetro Nome deve ter no mínimo 5 caracteres"
                     );
-                
+
                 if (!senha) throw new Error("O parâmetro Senha é obrigatório");
 
-                if (senha.length < 3) throw new Error("A senha deve ter no mínimo 3 caracteres");
+                if (senha.length < 3)
+                    throw new Error("A senha deve ter no mínimo 3 caracteres");
 
                 return query(args);
             },
