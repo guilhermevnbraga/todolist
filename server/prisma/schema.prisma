@@ -23,7 +23,7 @@ model Tarefa {
 }
 
 model Membro {
-  id    String @id @deafult(uuid())
+  id    String @id @default(uuid())
   email String @unique
   nome  String
 }

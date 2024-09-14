@@ -39,6 +39,22 @@ const prisma = new PrismaClient().$extends({
                 return query(args);
             },
         },
+        membro: {
+            async create({ args, query }) {
+                const { email, nome } = args.data;
+
+                if (!email) throw new Error("O parâmetro Email é obrigatório");
+
+                if (!nome) throw new Error("O parâmetro Nome é obrigatório");
+
+                if (nome.length < 5)
+                    throw new Error(
+                        "O parâmetro Nome deve ter no mínimo 5 caracteres"
+                    );
+
+                return query(args);
+            },
+        },
     },
 });
 
