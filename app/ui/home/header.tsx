@@ -12,17 +12,13 @@ export default function Header({ name }: { name: string }) {
             <nav className="flex grow justify-between">
                 <ul className="flex space-x-4">
                     <li>
-                        <Link className="hover:underline" href="/home">
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className="hover:underline" href="/tarefas/lista">
+                        <Link className="hover:underline" href="/tarefas">
                             Lista de Tarefas
                         </Link>
                     </li>
                     <li>
                         <button
+                            className="hover:underline"
                             onClick={() =>
                                 signOut({ callbackUrl: "/register" })
                             }
