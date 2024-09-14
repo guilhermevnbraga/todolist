@@ -1,12 +1,13 @@
 import { prisma } from "../models/prismaClient.js";
 
 export async function createMembro(req, res) {
-    const { name, email } = req.body;
+    const { nome, email, senha } = req.body;
     try {
         await prisma.membro.create({
             data: {
                 email,
-                nome: name,
+                nome,
+                senha,
             },
         });
 

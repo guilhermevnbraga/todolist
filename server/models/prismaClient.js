@@ -6,7 +6,8 @@ const prisma = new PrismaClient().$extends({
             async create({ args, query }) {
                 const { membroId, nome, descricao, prioridade } = args.data;
 
-                if (!membroId) throw new Error("O parâmetro MembroId é obrigatório");
+                if (!membroId)
+                    throw new Error("O parâmetro MembroId é obrigatório");
 
                 if (!nome) throw new Error("O parâmetro Nome é obrigatório");
 
@@ -43,16 +44,9 @@ const prisma = new PrismaClient().$extends({
         },
         membro: {
             async create({ args, query }) {
-                const { email, nome } = args.data;
+                const { email, nome, senha } = args.data;
 
                 if (!email) throw new Error("O parâmetro Email é obrigatório");
-
-                if (!nome) throw new Error("O parâmetro Nome é obrigatório");
-
-                if (nome.length < 5)
-                    throw new Error(
-                        "O parâmetro Nome deve ter no mínimo 5 caracteres"
-                    );
 
                 const emailExistente = await prisma.membro.findUnique({
                     where: { email },
@@ -61,6 +55,17 @@ const prisma = new PrismaClient().$extends({
                 if (emailExistente) {
                     throw new Error("O email já está em uso");
                 }
+
+                if (!nome) throw new Error("O parâmetro Nome é obrigatório");
+
+                if (nome.length < 5)
+                    throw new Error(
+                        "O parâmetro Nome deve ter no mínimo 5 caracteres"
+                    );
+                
+                if (!senha) throw new Error("O parâmetro Senha é obrigatório");
+
+                if (senha.length < 3) throw new Error("A senha deve ter no mínimo 3 caracteres");
 
                 return query(args);
             },
