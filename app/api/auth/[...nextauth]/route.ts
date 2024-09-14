@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
     pages: {
-        signIn: "/login",
+        signIn: "/",
     },
     session: {
         strategy: "jwt",
@@ -32,6 +32,7 @@ const handler = NextAuth({
 
                 const data = await response.json();
                 if (response.status == 200) {
+                    console.log(data)
                     return {
                         id: data.user.id,
                         email: data.user.email,
