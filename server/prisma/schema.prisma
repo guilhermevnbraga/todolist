@@ -15,15 +15,18 @@ enum Prioridade {
 
 model Tarefa {
   id          String     @id @default(uuid())
+  membroId    String
   nome        String     @db.VarChar(50)
   descricao   String?    @db.VarChar(140)
   finalizada  Boolean    @default(false)
   dataTermino DateTime?
   prioridade  Prioridade @default(BAIXA)
+  membro      Membro     @relation(fields: [membroId], references: [id])
 }
 
 model Membro {
-  id    String @id @default(uuid())
-  email String @unique
-  nome  String
+  id      String @id @default(uuid())
+  email   String @unique
+  nome    String
+  tarefas Tarefa[]
 }

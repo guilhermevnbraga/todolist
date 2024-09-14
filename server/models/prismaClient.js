@@ -52,6 +52,14 @@ const prisma = new PrismaClient().$extends({
                         "O parâmetro Nome deve ter no mínimo 5 caracteres"
                     );
 
+                const emailExistente = await prisma.membro.findUnique({
+                    where: { email },
+                });
+
+                if (emailExistente) {
+                    throw new Error("O email já está em uso");
+                }
+
                 return query(args);
             },
         },
