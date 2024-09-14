@@ -5,7 +5,7 @@ import Label from "./ui/account/Label";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Page() {
     const [email, setEmail] = useState("");
