@@ -175,7 +175,7 @@ export default function Tarefas({
                                         {tarefa.nome}
                                     </h2>
                                 </section>
-                                {tarefa.abrirDescricao && (
+                                {tarefa.abrirDescricao && tarefa.descricao && (
                                     <p className="mb-4">{`Descrição: ${tarefa.descricao}`}</p>
                                 )}
                                 <p>{`Prioridade: ${tarefa.prioridade}`}</p>
