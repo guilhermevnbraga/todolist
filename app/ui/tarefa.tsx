@@ -26,8 +26,18 @@ export default function Tarefa({
 
         try {
             const payload = update
-                ? { id: tarefaId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() }
-                : { membroId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() };
+                ? {
+                      id: tarefaId,
+                      nome: nome.trim(),
+                      descricao: descricao.trim(),
+                      prioridade: prioridade.trim(),
+                  }
+                : {
+                      membroId,
+                      nome: nome.trim(),
+                      descricao: descricao.trim(),
+                      prioridade: prioridade.trim(),
+                  };
 
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/tarefa/${
@@ -43,7 +53,11 @@ export default function Tarefa({
             );
             const data = await response.json();
             if (response.ok) {
-                alert(`Tarefa ${update ? "atualizada": "cadastrada"} com sucesso!`);
+                alert(
+                    `Tarefa ${
+                        update ? "atualizada" : "cadastrada"
+                    } com sucesso!`
+                );
                 setNome("");
                 setDescricao("");
                 setPrioridade("");
@@ -54,7 +68,7 @@ export default function Tarefa({
                 console.log(data.error);
             }
         } catch (error) {
-            alert(`Erro ao ${update ? "atualizar": "cadastrar"} tarefa.`);
+            alert(`Erro ao ${update ? "atualizar" : "cadastrar"} tarefa.`);
         }
     };
 
@@ -195,6 +209,35 @@ export default function Tarefa({
                 >
                     {update ? "Atualizar" : "Cadastrar"}
                 </button>
+                {update && (
+                    <button
+                        className="font-bold w-full bg-red-500 text-white p-2 rounded mt-2 focus:outline-none"
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            const response = await fetch(
+                                `${process.env.NEXT_PUBLIC_API_URL}/tarefa/delete`,
+                                {
+                                    method: "DELETE",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        id: tarefaId,
+                                    }),
+                                }
+                            );
+
+                            if (response.ok) {
+                                alert("Tarefa excluída com sucesso!");
+                                router.push("/tarefas");
+                            } else {
+                                alert("Erro ao excluir tarefa.");
+                            }
+                        }}
+                    >
+                        Excluir
+                    </button>
+                )}
             </form>
             <Link
                 href={"/tarefas"}

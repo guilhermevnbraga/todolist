@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 export default function Header({
@@ -19,13 +20,12 @@ export default function Header({
             <nav className="flex grow justify-between">
                 <ul className="flex space-x-4 w-1/3 items-center">
                     <li>
-                        <Link href="/home" className="font-bold text-2xl mr-3">To Do List</Link>
+                        <Link href="/home" className="font-bold text-2xl mr-3">
+                            To Do List
+                        </Link>
                     </li>
                     <li>
-                        <Link
-                            className="hover:underline"
-                            href="/"
-                        >
+                        <Link className="hover:underline" href="/">
                             Cadastrar Nova Tarefa
                         </Link>
                     </li>
@@ -49,6 +49,20 @@ export default function Header({
                             onClick={() => setOpen(!open)}
                         >{`Olá ${name}!`}</button>
                     </li>
+                    {open && (
+                        <li className="absolute top-12 right-0 font-bold bg-sky-700 w-[6%] p-2 text-center">
+                            <nav className="flex flex-col">
+                                <ul>
+                                    <li
+                                        onClick={() => signOut()}
+                                        className="hover:cursor-pointer"
+                                    >
+                                        Sair
+                                    </li>
+                                </ul>
+                            </nav>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>
