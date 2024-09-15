@@ -50,3 +50,34 @@ export async function getTarefas(req, res) {
         res.status(400).json({ error: error.message });
     }
 }
+
+export async function updateTarefa(req, res) {
+    const { id, nome, descricao, prioridade, finalizada } = req.body;
+
+    const data = {};
+    if (nome) data.nome = nome;
+    if (descricao) data.descricao = descricao;
+    if (prioridade) data.prioridade = prioridade.toUpperCase();
+    if (finalizada) {
+        data.finalizada = finalizada;
+
+        const now = new Date();
+        now.setHours(now.getHours() - 3);
+        const formattedDateTime = now.toISOString();
+
+        data.dataTermino = formattedDateTime;
+    }
+
+    try {
+        await prisma.tarefa.update({
+            where: {
+                id,
+            },
+            data,
+        });
+
+        res.status(200).json({ message: "Tarefa atualizada com sucesso" });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
