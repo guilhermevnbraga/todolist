@@ -1,10 +1,11 @@
 import express from 'express';
-import { createTarefa, getTarefas, updateTarefa, deleteTarefa } from '../controllers/tarefaController.js';
+import { createTarefa, getTarefas, getTarefaById, updateTarefa, deleteTarefa } from '../controllers/tarefaController.js';
 
 const tarefaRouter = express.Router();
 
 tarefaRouter.post('/create', createTarefa);
 tarefaRouter.get('/list', getTarefas);
+tarefaRouter.get('/get/:id', getTarefaById);
 tarefaRouter.patch('/update', updateTarefa);
 tarefaRouter.delete('/delete', deleteTarefa);
 

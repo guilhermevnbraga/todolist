@@ -51,6 +51,25 @@ export async function getTarefas(req, res) {
     }
 }
 
+export async function getTarefaById(req, res) {
+    const { id } = req.params;
+    try {
+        const tarefa = await prisma.tarefa.findUnique({
+            where: {
+                id: parseInt(id),
+            },
+        });
+
+        if (!tarefa) {
+            throw new Error("Tarefa não encontrada");
+        }
+
+        res.status(200).json(tarefa);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export async function updateTarefa(req, res) {
     const { id, nome, descricao, prioridade, finalizada } = req.body;
 
