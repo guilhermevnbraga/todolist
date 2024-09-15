@@ -1,11 +1,32 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
 import Input from "../Input";
 import Label from "../Label";
 
-export default function Update({ email }: { email: string }) {
-    const [membroId, setMembroId] = useState('');
+interface Tarefa {
+    id: number;
+    membroId: string;
+    nome: string;
+    descricao: string;
+    abrirDescricao: boolean;
+    finalizada: boolean;
+    dataTermino: string;
+    prioridade: string;
+}
+
+export default function Update({ email, id }: { email: string; id: string }) {
+    const [membroId, setMembroId] = useState("");
+    const [tarefa, setTarefa] = useState<Tarefa>({
+        id: 0,
+        membroId: "",
+        nome: "",
+        descricao: "",
+        abrirDescricao: false,
+        finalizada: false,
+        dataTermino: "",
+        prioridade: "",
+    });
 
     const fetchMembro = async () => {
         const response = await fetch(`/membro/email?email=${email}`);
@@ -14,13 +35,14 @@ export default function Update({ email }: { email: string }) {
     };
 
     const fecthTarefa = async () => {
-        const response = await fetch(`/tarefa/${membroId}`);
+        const response = await fetch(`/tarefa/:${id}`);
         const data = await response.json();
-        console.log(data);
-    }
+        setTarefa(data);
+    };
 
     useEffect(() => {
         fetchMembro();
+        fecthTarefa();
     }, [email]);
 
     return (

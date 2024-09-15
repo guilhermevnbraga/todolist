@@ -43,7 +43,7 @@ export default function Input({
             className={`w-full p-2 mb-1 rounded border-2 focus:outline-none focus:border-sky-400 focus:invalid:border-pink-500 ${inputValue ? 'invalid:border-pink-500' : ''}`}
             required={required}
             placeholder={placeholder}
-            value={inputValue}
+            value={value ? value : inputValue}
             onChange={handleChange}
             onInvalid={onInvalid}
             maxLength={140}

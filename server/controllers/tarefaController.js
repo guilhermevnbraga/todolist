@@ -53,10 +53,11 @@ export async function getTarefas(req, res) {
 
 export async function getTarefaById(req, res) {
     const { id } = req.params;
+    console.log(id)
     try {
         const tarefa = await prisma.tarefa.findUnique({
             where: {
-                id: parseInt(id),
+                id,
             },
         });
 
@@ -72,10 +73,11 @@ export async function getTarefaById(req, res) {
 
 export async function updateTarefa(req, res) {
     const { id, nome, descricao, prioridade, finalizada } = req.body;
+    console.log(req.body)
 
     const data = {};
     if (nome) data.nome = nome;
-    if (descricao) data.descricao = descricao;
+    if (descricao !== undefined) data.descricao = descricao;
     if (prioridade) data.prioridade = prioridade.toUpperCase();
     if (finalizada) {
         data.finalizada = finalizada;

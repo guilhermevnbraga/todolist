@@ -4,44 +4,57 @@ import Input from "../Input";
 import Label from "../Label";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Cadastro({ email }: { email: string }) {
+export default function Cadastro({
+    email,
+    update,
+    tarefaId,
+}: {
+    email: string;
+    update: boolean;
+    tarefaId?: string;
+}) {
     const [membroId, setMembroId] = useState("");
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [prioridade, setPrioridade] = useState("");
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
+            const payload = update
+                ? { id: tarefaId, nome, descricao, prioridade }
+                : { membroId, nome, descricao, prioridade };
+
+            console.log(payload)
+
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/tarefa/create`,
+                `${process.env.NEXT_PUBLIC_API_URL}/tarefa/${
+                    update ? "update" : "create"
+                }`,
                 {
-                    method: "POST",
+                    method: update ? "PATCH" : "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        membroId,
-                        nome,
-                        descricao,
-                        prioridade,
-                    }),
+                    body: JSON.stringify(payload),
                 }
             );
             const data = await response.json();
             console.log(prioridade);
             if (response.ok) {
-                alert("Tarefa cadastrada com sucesso!");
+                alert(`Tarefa ${update ? "atualizada": "cadastrada"} com sucesso!`);
                 setNome("");
                 setDescricao("");
                 setPrioridade("");
             } else {
-                alert(data.error);
+                console.log(data.error);
             }
         } catch (error) {
-            alert("Erro ao cadastrar tarefa.");
+            alert(`Erro ao ${update ? "atualizar": "cadastrar"} tarefa.`);
         }
     };
 
@@ -63,8 +76,28 @@ export default function Cadastro({ email }: { email: string }) {
         }
     };
 
+    const fetchTarefa = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/tarefa/get/${tarefaId}`
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                setNome(data.nome);
+                setDescricao(data.descricao);
+                setPrioridade(data.prioridade);
+            } else {
+                alert("Erro ao buscar tarefa.");
+            }
+        } catch (error) {
+            alert("Erro ao buscar tarefa.");
+        }
+    };
+
     useEffect(() => {
         fetchMembroId();
+        if (update) fetchTarefa();
     }, []);
 
     return (
@@ -74,7 +107,7 @@ export default function Cadastro({ email }: { email: string }) {
                 className="flex flex-col h-2/3 w-1/3 p-6"
             >
                 <h1 className="font-bold mb-12 w-full text-center text-3xl">
-                    Cadastre uma nova tarefa!
+                    {update ? "Atualizar Tarefa" : "Cadastrar Tarefa"}
                 </h1>
                 <Label label="Nome">
                     <Input
@@ -82,6 +115,7 @@ export default function Cadastro({ email }: { email: string }) {
                         type="text"
                         pattern=".{5,50}"
                         placeholder="Nome da tarefa"
+                        value={nome}
                         onChange={(e) => setNome(e.target.value.trim())}
                         onInvalid={(e) => {
                             const target = e.target as HTMLInputElement;
@@ -106,6 +140,7 @@ export default function Cadastro({ email }: { email: string }) {
                         name="descricao"
                         type="textarea"
                         placeholder="Descrição da tarefa"
+                        value={descricao}
                         onChange={(e) => setDescricao(e.target.value.trim())}
                         onInvalid={(e) => {
                             const target = e.target as HTMLInputElement;
@@ -118,7 +153,6 @@ export default function Cadastro({ email }: { email: string }) {
                                 target.setCustomValidity("");
                             }
                         }}
-                        required
                     ></Input>
                 </Label>
                 <Label label="Prioridade">
@@ -127,6 +161,7 @@ export default function Cadastro({ email }: { email: string }) {
                         type="text"
                         pattern="^(BAIXA|M[EÉ]DIA|ALTA|baixa|m[eé]dia|alta)$"
                         placeholder="Prioridade da tarefa"
+                        value={prioridade}
                         onChange={(e) => {
                             if (
                                 e.target.value === "média" ||
@@ -158,8 +193,11 @@ export default function Cadastro({ email }: { email: string }) {
                 <button
                     type="submit"
                     className="font-bold w-full bg-sky-500 text-white p-2 rounded mt-2 focus:outline-none"
+                    onClick={(e) => {
+                        if (update) router.push("/tarefas");
+                    }}
                 >
-                    Cadastrar
+                    {update ? "Atualizar" : "Cadastrar"}
                 </button>
             </form>
             <Link

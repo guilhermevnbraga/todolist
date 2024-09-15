@@ -21,9 +21,6 @@ const prisma = new PrismaClient().$extends({
                         "O parâmetro Nome deve ter no máximo 50 caracteres"
                     );
 
-                if (!descricao)
-                    throw new Error("O parâmetro Descrição é obrigatório");
-
                 if (descricao.length > 140)
                     throw new Error(
                         "O parâmetro Descrição deve ter no máximo 140 caracteres"

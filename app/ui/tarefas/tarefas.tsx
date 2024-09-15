@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 interface Tarefa {
     id: number;
@@ -150,9 +151,9 @@ export default function Tarefas({
                                         tarefa.abrirDescricao && (
                                             <>
                                                 {!tarefa.finalizada && (
-                                                    <button className=" float-left mr-3">
+                                                    <Link href={`/tarefa/${tarefa.id}`} className=" float-left mr-3">
                                                         <PencilIcon className="w-6 h-6" />
-                                                    </button>
+                                                    </Link>
                                                 )}
                                                 <button className=" float-right ml-3" onClick={(e) => {
                                                     e.preventDefault();
