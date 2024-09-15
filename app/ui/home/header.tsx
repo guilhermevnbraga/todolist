@@ -23,7 +23,7 @@ export default function Header({ name }: { name: string }) {
                                 signOut({ callbackUrl: "/cadastro" })
                             }
                         >
-                            Registrar Novo Membro
+                            Cadastrar Novo Membro
                         </button>
                     </li>
                 </ul>

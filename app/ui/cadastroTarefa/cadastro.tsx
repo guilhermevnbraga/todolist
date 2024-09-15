@@ -163,10 +163,10 @@ export default function Cadastro({ email }: { email: string }) {
                 </button>
             </form>
             <Link
-                href={"/home"}
+                href={"/tarefas"}
                 className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500"
             >
-                Voltar para a Home
+                Voltar para a Lista de Tarefas
             </Link>
         </section>
     );
