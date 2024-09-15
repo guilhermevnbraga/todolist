@@ -1,7 +1,7 @@
 "use client";
 
-import Input from "../account/Input";
-import Label from "../account/Label";
+import Input from "../Input";
+import Label from "../Label";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 

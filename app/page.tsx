@@ -1,7 +1,7 @@
 "use client";
 
-import Input from "./ui/account/Input";
-import Label from "./ui/account/Label";
+import Input from "./ui/Input";
+import Label from "./ui/Label";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
