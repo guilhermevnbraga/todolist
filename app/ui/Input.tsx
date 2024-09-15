@@ -60,6 +60,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             onInvalid={onInvalid}
+            autoComplete='off'
         />
     );
 }

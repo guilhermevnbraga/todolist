@@ -34,16 +34,16 @@ export default function Page() {
 
             if (!response.ok) {
                 const data = await response.json();
-                alert(data.error)
+                alert(data.error);
+            } else {
+                await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: false,
+                });
+
+                router.push("/home");
             }
-
-            await signIn("credentials", {
-                email,
-                password,
-                redirect: false,
-            });
-
-            router.push("/home");
         } catch (error) {
             console.error(error);
         }
@@ -78,7 +78,7 @@ export default function Page() {
                                     );
                                 } else if (target.validity.patternMismatch) {
                                     target.setCustomValidity(
-                                        "O nome deve ter entre 5 e 50 caracteres."
+                                        "O nome deve ter no mínimo 5 caracteres."
                                     );
                                 } else {
                                     target.setCustomValidity("");
