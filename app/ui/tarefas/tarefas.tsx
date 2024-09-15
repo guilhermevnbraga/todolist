@@ -69,6 +69,24 @@ export default function Tarefas({
         }
     };
 
+    const handleFinalizeTarefa = async (id: number) => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/tarefa/update`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id,
+                    finalizada: true,
+                }),
+            }
+        );
+        const data = await response.json();
+        console.log(data);
+    };
+
     useEffect(() => {
         fetchMembro();
         fetchTarefas();
@@ -141,7 +159,16 @@ export default function Tarefas({
                                     {tarefa.membroId === userId &&
                                         tarefa.abrirDescricao &&
                                         !tarefa.finalizada && (
-                                            <button className="float-right">
+                                            <button
+                                                className="float-right"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    tarefa.finalizada = true;
+                                                    handleFinalizeTarefa(
+                                                        tarefa.id
+                                                    );
+                                                }}
+                                            >
                                                 <CheckIcon className="w-6 h-6" />
                                             </button>
                                         )}
