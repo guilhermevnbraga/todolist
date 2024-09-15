@@ -29,7 +29,7 @@ export default function Update({ email, id }: { email: string; id: string }) {
     });
 
     const fetchMembro = async () => {
-        const response = await fetch(`/membro/email?email=${email}`);
+        const response = await fetch(`/membro/email/${email}`);
         const data = await response.json();
         setMembroId(data.id);
     };

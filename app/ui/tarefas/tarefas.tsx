@@ -31,7 +31,7 @@ export default function Tarefas({
 
     const fetchMembro = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/membro/email?email=${email}`
+            `${process.env.NEXT_PUBLIC_API_URL}/membro/email/${email}`
         );
         const data = await response.json();
         setUserId(data.id);

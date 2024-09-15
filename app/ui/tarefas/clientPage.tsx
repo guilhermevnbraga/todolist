@@ -9,7 +9,7 @@ export default function ClientPage({ name, email }: { name: string; email: strin
 
   return (
     <div>
-      <Header name={name} setTargetEmail={setTargetEmail} />
+      <Header name={name} membroEmail={email} setTargetEmail={setTargetEmail} />
       <Tarefas email={email} targetEmail={targetEmail} />
     </div>
   );

@@ -4,7 +4,13 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Header({ name }: { name: string }) {
+export default function Header({
+    name,
+    email,
+}: {
+    name: string;
+    email: string;
+}) {
     const [open, setOpen] = useState(false);
     return (
         <header className="flex items-center justify-between p-4 bg-sky-700 text-white">
@@ -40,6 +46,31 @@ export default function Header({ name }: { name: string }) {
                         <li className="absolute top-12 right-0 font-bold bg-sky-700 w-[10%] 2xl:w-[7%] p-2 text-right text-sm">
                             <nav className="flex flex-col">
                                 <ul>
+                                    <li
+                                        onClick={async () => {
+                                            const membro = await fetch(
+                                                `${process.env.NEXT_PUBLIC_API_URL}/membro/email/${email}`
+                                            ).then((res) => res.json());
+
+                                            await fetch(
+                                                `${process.env.NEXT_PUBLIC_API_URL}/membro/delete`,
+                                                {
+                                                    method: "DELETE",
+                                                    headers: {
+                                                        "Content-Type":
+                                                            "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        id: membro.id,
+                                                    }),
+                                                }
+                                            );
+                                            signOut();
+                                        }}
+                                        className="hover:cursor-pointer"
+                                    >
+                                        Excluir Cadastro
+                                    </li>
                                     <li
                                         onClick={() => signOut()}
                                         className="hover:cursor-pointer"

@@ -3,9 +3,9 @@ import { createTarefa, getTarefas, getTarefaById, updateTarefa, deleteTarefa } f
 
 const tarefaRouter = express.Router();
 
-tarefaRouter.post('/create', createTarefa);
 tarefaRouter.get('/list', getTarefas);
 tarefaRouter.get('/get/:id', getTarefaById);
+tarefaRouter.post('/create', createTarefa);
 tarefaRouter.patch('/update', updateTarefa);
 tarefaRouter.delete('/delete', deleteTarefa);
 

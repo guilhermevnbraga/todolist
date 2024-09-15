@@ -45,7 +45,7 @@ export async function login(req, res) {
 }
 
 export async function getMembroByEmail(req, res) {
-    const { email } = req.query;
+    const { email } = req.params;
     try {
         const membro = await prisma.membro.findUnique({
             where: { email },
@@ -56,6 +56,29 @@ export async function getMembroByEmail(req, res) {
         }
 
         res.status(200).json(membro);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function deleteMembro(req, res) {
+    const { id } = req.body;
+    try {
+        const tarefas = await prisma.tarefa.findMany({
+            where: { membroId: id },
+        });
+
+        if (tarefas.length) {
+            await prisma.tarefa.deleteMany({
+                where: { membroId: id },
+            });
+        }
+
+        await prisma.membro.delete({
+            where: { id },
+        });
+
+        res.status(200).json({ message: "Membro deletado com sucesso" });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
