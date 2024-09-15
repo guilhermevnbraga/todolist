@@ -5,7 +5,7 @@ import Header from "./header";
 import Tarefas from "./tarefas";
 
 export default function ClientPage({ name, email }: { name: string; email: string }) {
-  const [targetEmail, setTargetEmail] = useState(email);
+  const [targetEmail, setTargetEmail] = useState("");
 
   return (
     <div>

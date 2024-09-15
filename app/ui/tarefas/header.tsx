@@ -40,7 +40,7 @@ export default function Header({
                     <input
                         type="text"
                         className="text-black w-11/12 h-full focus:outline-none px-1"
-                        placeholder="Pesquise um membro pelo email"
+                        placeholder="Pesquisar Membro por Email"
                         onChange={(e) => setEmail(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") setTargetEmail(email);
@@ -50,7 +50,7 @@ export default function Header({
                 <ul className="flex flex-col w-1/3 items-end">
                     <li>
                         <button
-                            className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
+                            className="text-xl font-bold hover:underline text-end w-full"
                             onClick={() => setOpen(!open)}
                         >{`Olá ${name}!`}</button>
                     </li>

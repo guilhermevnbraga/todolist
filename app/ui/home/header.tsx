@@ -30,7 +30,7 @@ export default function Header({ name }: { name: string }) {
                 <ul className="flex flex-col grow items-end">
                     <li>
                         <button
-                            className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
+                            className="text-xl font-bold hover:underline text-end w-full"
                             onClick={() => {
                                 setOpen(!open);
                             }}

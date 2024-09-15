@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 interface Tarefa {
     id: number;
@@ -21,6 +24,7 @@ export default function Tarefas({
     email: string;
     targetEmail: string;
 }) {
+    const [userId, setUserId] = useState<string>("");
     const [tarefas, setTarefas] = useState<Tarefa[]>([]);
     const router = useRouter();
 
@@ -29,7 +33,7 @@ export default function Tarefas({
             `${process.env.NEXT_PUBLIC_API_URL}/membro/email?email=${email}`
         );
         const data = await response.json();
-        return data;
+        setUserId(data.id);
     };
 
     const fetchTarefas = async () => {
@@ -37,6 +41,7 @@ export default function Tarefas({
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/list`
         );
         const data = await response.json();
+        console.log(data);
         setTarefas(data);
     };
 
@@ -45,7 +50,6 @@ export default function Tarefas({
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/list?email=${targetEmail}`
         );
         const data = await response.json();
-        console.log(data);
         if (data.error) {
             setTarefas([
                 {
@@ -60,6 +64,7 @@ export default function Tarefas({
                 },
             ]);
         } else {
+            console.log(data);
             setTarefas(data);
         }
     };
@@ -76,7 +81,7 @@ export default function Tarefas({
 
     return (
         <section className="w-full flex p-4">
-            <ul className="grid grid-cols-6 gap-4 w-full">
+            <ul className="grid grid-cols-5 gap-4 w-full">
                 {tarefas.map((tarefa) => {
                     if (tarefa.prioridade === "MEDIA") {
                         tarefa.prioridade = "Média";
@@ -93,7 +98,10 @@ export default function Tarefas({
                             className="flex h-fit grow justify-center"
                         >
                             <button
-                                className="bg-orange-200 text-gray-800 p-4 text-left min-w-full rounded-xl"
+                                className={`bg-orange-200 text-gray-800 p-4 text-left min-w-full rounded-xl ${
+                                    tarefa.abrirDescricao &&
+                                    "hover:scale-100 active:scale-100"
+                                }`}
                                 onClick={() => {
                                     tarefa.abrirDescricao
                                         ? (tarefa.abrirDescricao =
@@ -102,9 +110,24 @@ export default function Tarefas({
                                     router.refresh();
                                 }}
                             >
-                                <h2 className="text-center mb-4 font-bold text-lg ">
-                                    {tarefa.nome}
-                                </h2>
+                                <section>
+                                    {tarefa.membroId === userId &&
+                                        tarefa.abrirDescricao && (
+                                            <>
+                                                {!tarefa.finalizada && (
+                                                    <button className=" float-left mr-3">
+                                                        <PencilIcon className="w-6 h-6" />
+                                                    </button>
+                                                )}
+                                                <button className=" float-right ml-3">
+                                                    <TrashIcon className="w-6 h-6" />
+                                                </button>
+                                            </>
+                                        )}
+                                    <h2 className="text-center mb-4 font-bold text-lg ">
+                                        {tarefa.nome}
+                                    </h2>
+                                </section>
                                 {tarefa.abrirDescricao && (
                                     <p className="mb-4">{`Descrição: ${tarefa.descricao}`}</p>
                                 )}
@@ -115,6 +138,13 @@ export default function Tarefas({
                                             ? "Finalizada"
                                             : "Pendente"
                                     }`}
+                                    {tarefa.membroId === userId &&
+                                        tarefa.abrirDescricao &&
+                                        !tarefa.finalizada && (
+                                            <button className="float-right">
+                                                <CheckIcon className="w-6 h-6" />
+                                            </button>
+                                        )}
                                 </p>
                             </button>
                         </li>
