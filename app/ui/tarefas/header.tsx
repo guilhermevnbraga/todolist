@@ -2,32 +2,29 @@
 
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 export default function Header({ name }: { name: string }) {
     const [open, setOpen] = useState(false);
     return (
         <header className="flex items-center justify-between p-4 bg-sky-700 text-white">
-            <h1 className="font-bold text-2xl mr-12">To Do List</h1>
             <nav className="flex grow justify-between">
-                <ul className="flex space-x-4 items-center">
+                <ul className="flex space-x-4 w-1/3 items-center">
                     <li>
-                        <Link className="hover:underline" href="/tarefas">
-                            Lista de Tarefas
+                        <h1 className="font-bold text-2xl mr-12">To Do List</h1>
+                    </li>
+                    <li>
+                        <Link className="hover:underline" href="/home">
+                            Home
                         </Link>
                     </li>
-                    <li>
-                        <button
-                            className="hover:underline"
-                            onClick={() =>
-                                signOut({ callbackUrl: "/register" })
-                            }
-                        >
-                            Registrar Novo Membro
-                        </button>
-                    </li>
                 </ul>
-                <ul className="flex flex-col grow items-end">
+                <section className="flex w-1/3 rounded-xl items-center border-2">
+                    <MagnifyingGlassIcon className="w-6 h-6 ml-1 mr-1"/>
+                    <input type="text" className="text-black w-11/12 h-full focus:outline-none px-1" placeholder="Pesquise um membro"/>
+                </section>
+                <ul className="flex flex-col w-1/3 items-end">
                     <li>
                         <button
                             className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
