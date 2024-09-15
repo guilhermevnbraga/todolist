@@ -1,12 +1,19 @@
 "use client";
 
-import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-export default function Header({ name }: { name: string }) {
+export default function Header({
+    name,
+    setTargetEmail,
+}: {
+    name: string;
+    setTargetEmail: (email: string) => void;
+}) {
     const [open, setOpen] = useState(false);
+    const [email, setEmail] = useState("");
+
     return (
         <header className="flex items-center justify-between p-4 bg-sky-700 text-white">
             <nav className="flex grow justify-between">
@@ -20,38 +27,33 @@ export default function Header({ name }: { name: string }) {
                         </Link>
                     </li>
                     <li>
-                        <Link className="hover:underline" href="/cadastroTarefa">
+                        <Link
+                            className="hover:underline"
+                            href="/cadastroTarefa"
+                        >
                             Cadastrar Tarefa
                         </Link>
                     </li>
                 </ul>
                 <section className="flex w-1/3 rounded-xl items-center border-2">
-                    <MagnifyingGlassIcon className="w-6 h-6 ml-1 mr-1"/>
-                    <input type="text" className="text-black w-11/12 h-full focus:outline-none px-1" placeholder="Pesquise um membro pelo email"/>
+                    <MagnifyingGlassIcon className="w-6 h-6 ml-1 mr-1" />
+                    <input
+                        type="text"
+                        className="text-black w-11/12 h-full focus:outline-none px-1"
+                        placeholder="Pesquise um membro pelo email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") setTargetEmail(email);
+                        }}
+                    />
                 </section>
                 <ul className="flex flex-col w-1/3 items-end">
                     <li>
                         <button
                             className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
-                            onClick={() => {
-                                setOpen(!open);
-                            }}
+                            onClick={() => setOpen(!open)}
                         >{`Olá ${name}!`}</button>
                     </li>
-                    {open && (
-                        <li className="absolute top-12 right-0 font-bold bg-sky-700 w-[6%] p-2 text-center">
-                            <nav className="flex flex-col">
-                                <ul>
-                                    <li
-                                        onClick={() => signOut()}
-                                        className="hover:cursor-pointer"
-                                    >
-                                        Sair
-                                    </li>
-                                </ul>
-                            </nav>
-                        </li>
-                    )}
                 </ul>
             </nav>
         </header>

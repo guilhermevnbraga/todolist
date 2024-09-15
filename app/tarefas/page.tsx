@@ -1,13 +1,12 @@
-import Header from "../ui/tarefas/header";
-import Tarefas from "../ui/tarefas/tarefas";
 import { getServerSession } from "next-auth";
+import ClientPage from "../ui/tarefas/clientPage";
 
 export default async function Page() {
-    const session = await getServerSession();
-    return (
-        <main className="flex flex-col min-h-screen">
-            <Header name={session?.user?.name || ""}></Header>
-            <Tarefas email={session?.user?.email || ""}></Tarefas>
-        </main>
-    );
+  const session = await getServerSession();
+
+  return (
+    <main className="flex flex-col min-h-screen">
+      <ClientPage name={session?.user?.name || ""} email={session?.user?.email || ""} />
+    </main>
+  );
 }

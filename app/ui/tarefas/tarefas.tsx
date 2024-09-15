@@ -14,22 +14,65 @@ interface Tarefa {
     prioridade: string;
 }
 
-export default function Tarefas({ email }: { email: string }) {
+export default function Tarefas({
+    email,
+    targetEmail,
+}: {
+    email: string;
+    targetEmail: string;
+}) {
     const [tarefas, setTarefas] = useState<Tarefa[]>([]);
     const router = useRouter();
+
+    const fetchMembro = async () => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/membro/email?email=${email}`
+        );
+        const data = await response.json();
+        return data;
+    };
 
     const fetchTarefas = async () => {
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/list`
         );
         const data = await response.json();
-        console.log(data);
         setTarefas(data);
     };
 
+    const fetchTarefasByMembro = async () => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/tarefa/list?email=${targetEmail}`
+        );
+        const data = await response.json();
+        console.log(data);
+        if (data.error) {
+            setTarefas([
+                {
+                    id: 0,
+                    membroId: "",
+                    nome: data.error,
+                    descricao: "",
+                    abrirDescricao: false,
+                    finalizada: true,
+                    dataTermino: "",
+                    prioridade: "Nulo",
+                },
+            ]);
+        } else {
+            setTarefas(data);
+        }
+    };
+
     useEffect(() => {
+        fetchMembro();
         fetchTarefas();
     }, []);
+
+    useEffect(() => {
+        console.log(targetEmail);
+        fetchTarefasByMembro();
+    }, [targetEmail]);
 
     return (
         <section className="w-full flex p-4">
@@ -45,7 +88,10 @@ export default function Tarefas({ email }: { email: string }) {
                                 .toUpperCase() + tarefa.prioridade.slice(1);
                     }
                     return (
-                        <li key={tarefa.id} className="flex h-fit grow justify-center">
+                        <li
+                            key={tarefa.id}
+                            className="flex h-fit grow justify-center"
+                        >
                             <button
                                 className="bg-orange-200 text-gray-800 p-4 text-left min-w-full rounded-xl"
                                 onClick={() => {
