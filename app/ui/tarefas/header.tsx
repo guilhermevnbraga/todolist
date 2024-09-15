@@ -19,19 +19,14 @@ export default function Header({
             <nav className="flex grow justify-between">
                 <ul className="flex space-x-4 w-1/3 items-center">
                     <li>
-                        <h1 className="font-bold text-2xl mr-12">To Do List</h1>
-                    </li>
-                    <li>
-                        <Link className="hover:underline" href="/home">
-                            Home
-                        </Link>
+                        <Link href="/home" className="font-bold text-2xl mr-3">To Do List</Link>
                     </li>
                     <li>
                         <Link
                             className="hover:underline"
                             href="/cadastroTarefa"
                         >
-                            Cadastrar Tarefa
+                            Cadastrar Nova Tarefa
                         </Link>
                     </li>
                 </ul>
@@ -41,7 +36,7 @@ export default function Header({
                         type="text"
                         className="text-black w-11/12 h-full focus:outline-none px-1"
                         placeholder="Pesquisar Membro por Email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.trim())}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") setTargetEmail(email);
                         }}

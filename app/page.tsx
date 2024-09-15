@@ -56,7 +56,7 @@ export default function Page() {
                             name="email"
                             placeholder="Digite seu email"
                             onChange={(e) => {
-                                setEmail(e.target.value);
+                                setEmail(e.target.value.trim());
                                 e.target.setCustomValidity("");
                             }}
                             onInvalid={(e) => {
@@ -84,7 +84,7 @@ export default function Page() {
                             pattern=".{3,}"
                             placeholder="Digite sua senha"
                             onChange={(e) => {
-                                setPassword(e.target.value);
+                                setPassword(e.target.value.trim());
                                 e.target.setCustomValidity("");
                             }}
                             onInvalid={(e) => {
@@ -114,7 +114,7 @@ export default function Page() {
                     </button>
                 </form>
                 <Link
-                    href={"/register"}
+                    href={"/cadastro"}
                     className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500"
                 >
                     Ainda não possui uma conta?
