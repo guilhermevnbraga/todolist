@@ -75,7 +75,7 @@ export default function Tarefa({
     const fetchMembroId = async () => {
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/membro/email?email=${email}`
+                `${process.env.NEXT_PUBLIC_API_URL}/membro/email/${email}`
             );
 
             if (response.ok) {

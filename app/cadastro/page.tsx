@@ -33,10 +33,9 @@ export default function Page() {
             );
 
             if (!response.ok) {
-                throw await response.json();
+                const data = await response.json();
+                alert(data.error)
             }
-
-            const data = await response.json();
 
             await signIn("credentials", {
                 email,
