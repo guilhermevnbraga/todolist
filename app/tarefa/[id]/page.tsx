@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import Cadastro from "../../ui/cadastroTarefa/cadastro";
+import Tarefa from "../../ui/tarefa";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const session = await getServerSession();
@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     return (
         <>
             <main className="flex items-center justify-center min-h-screen">
-                <Cadastro email={session?.user?.email || ""} update={true} tarefaId={id} />
+                <Tarefa email={session?.user?.email || ""} update={true} tarefaId={id} />
             </main>
         </>
     );

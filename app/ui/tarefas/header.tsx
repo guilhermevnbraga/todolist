@@ -24,7 +24,7 @@ export default function Header({
                     <li>
                         <Link
                             className="hover:underline"
-                            href="/cadastroTarefa"
+                            href="/"
                         >
                             Cadastrar Nova Tarefa
                         </Link>

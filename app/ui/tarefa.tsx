@@ -1,12 +1,12 @@
 "use client";
 
-import Input from "../Input";
-import Label from "../Label";
+import Input from "./Input";
+import Label from "./Label";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Cadastro({
+export default function Tarefa({
     email,
     update,
     tarefaId,
@@ -26,8 +26,8 @@ export default function Cadastro({
 
         try {
             const payload = update
-                ? { id: tarefaId, nome, descricao, prioridade }
-                : { membroId, nome, descricao, prioridade };
+                ? { id: tarefaId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() }
+                : { membroId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() };
 
             console.log(payload)
 
@@ -44,12 +44,14 @@ export default function Cadastro({
                 }
             );
             const data = await response.json();
-            console.log(prioridade);
             if (response.ok) {
                 alert(`Tarefa ${update ? "atualizada": "cadastrada"} com sucesso!`);
                 setNome("");
                 setDescricao("");
                 setPrioridade("");
+                if (update) {
+                    router.push("/tarefas");
+                }
             } else {
                 console.log(data.error);
             }
@@ -116,7 +118,7 @@ export default function Cadastro({
                         pattern=".{5,50}"
                         placeholder="Nome da tarefa"
                         value={nome}
-                        onChange={(e) => setNome(e.target.value.trim())}
+                        onChange={(e) => setNome(e.target.value)}
                         onInvalid={(e) => {
                             const target = e.target as HTMLInputElement;
 
@@ -141,7 +143,7 @@ export default function Cadastro({
                         type="textarea"
                         placeholder="Descrição da tarefa"
                         value={descricao}
-                        onChange={(e) => setDescricao(e.target.value.trim())}
+                        onChange={(e) => setDescricao(e.target.value)}
                         onInvalid={(e) => {
                             const target = e.target as HTMLInputElement;
 
@@ -169,7 +171,7 @@ export default function Cadastro({
                             ) {
                                 setPrioridade("MEDIA");
                             } else {
-                                setPrioridade(e.target.value.trim());
+                                setPrioridade(e.target.value);
                             }
                         }}
                         onInvalid={(e) => {
@@ -193,9 +195,6 @@ export default function Cadastro({
                 <button
                     type="submit"
                     className="font-bold w-full bg-sky-500 text-white p-2 rounded mt-2 focus:outline-none"
-                    onClick={(e) => {
-                        if (update) router.push("/tarefas");
-                    }}
                 >
                     {update ? "Atualizar" : "Cadastrar"}
                 </button>
