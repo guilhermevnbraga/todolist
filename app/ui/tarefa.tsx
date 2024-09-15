@@ -29,8 +29,6 @@ export default function Tarefa({
                 ? { id: tarefaId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() }
                 : { membroId, nome: nome.trim(), descricao: descricao.trim(), prioridade: prioridade.trim() };
 
-            console.log(payload)
-
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/tarefa/${
                     update ? "update" : "create"
@@ -62,7 +60,6 @@ export default function Tarefa({
 
     const fetchMembroId = async () => {
         try {
-            console.log(email);
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/membro/email?email=${email}`
             );

@@ -53,7 +53,6 @@ export async function getTarefas(req, res) {
 
 export async function getTarefaById(req, res) {
     const { id } = req.params;
-    console.log(id)
     try {
         const tarefa = await prisma.tarefa.findUnique({
             where: {
@@ -73,7 +72,6 @@ export async function getTarefaById(req, res) {
 
 export async function updateTarefa(req, res) {
     const { id, nome, descricao, prioridade, finalizada } = req.body;
-    console.log(req.body)
 
     const data = {};
     if (nome) data.nome = nome;

@@ -42,7 +42,6 @@ export default function Tarefas({
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/list`
         );
         const data = await response.json();
-        console.log(data);
         setTarefas(data);
     };
 
@@ -65,7 +64,6 @@ export default function Tarefas({
                 },
             ]);
         } else {
-            console.log(data);
             setTarefas(data);
         }
     };
@@ -85,7 +83,6 @@ export default function Tarefas({
             }
         );
         const data = await response.json();
-        console.log(data);
     };
 
     const handleDeleteTarefa = async (id: number) => {
@@ -102,8 +99,6 @@ export default function Tarefas({
             }
         );
         const data = await response.json();
-        console.log(data);
-    };
 
     useEffect(() => {
         fetchMembro();
@@ -111,7 +106,6 @@ export default function Tarefas({
     }, []);
 
     useEffect(() => {
-        console.log(targetEmail);
         fetchTarefasByMembro();
     }, [targetEmail]);
 
