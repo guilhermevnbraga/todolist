@@ -3,7 +3,7 @@ import { prisma } from "../models/prismaClient.js";
 export async function createTarefa(req, res) {
     const { membroId, nome, descricao, prioridade } = req.body;
     try {
-        const novaTarefa = await prisma.tarefa.create({
+        await prisma.tarefa.create({
             data: {
                 membroId,
                 nome,

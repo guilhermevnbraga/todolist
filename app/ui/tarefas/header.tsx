@@ -19,6 +19,11 @@ export default function Header({ name }: { name: string }) {
                             Home
                         </Link>
                     </li>
+                    <li>
+                        <Link className="hover:underline" href="/cadastroTarefa">
+                            Cadastrar Tarefa
+                        </Link>
+                    </li>
                 </ul>
                 <section className="flex w-1/3 rounded-xl items-center border-2">
                     <MagnifyingGlassIcon className="w-6 h-6 ml-1 mr-1"/>
