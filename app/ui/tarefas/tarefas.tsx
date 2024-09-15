@@ -69,7 +69,7 @@ export default function Tarefas({
     };
 
     const handleFinalizeTarefa = async (id: number) => {
-        const response = await fetch(
+        await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/update`,
             {
                 method: "PATCH",
@@ -82,11 +82,10 @@ export default function Tarefas({
                 }),
             }
         );
-        const data = await response.json();
     };
 
     const handleDeleteTarefa = async (id: number) => {
-        const response = await fetch(
+        await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/tarefa/delete`,
             {
                 method: "DELETE",
@@ -98,7 +97,7 @@ export default function Tarefas({
                 }),
             }
         );
-        const data = await response.json();
+    };
 
     useEffect(() => {
         fetchMembro();
@@ -145,15 +144,29 @@ export default function Tarefas({
                                         tarefa.abrirDescricao && (
                                             <>
                                                 {!tarefa.finalizada && (
-                                                    <Link href={`/tarefa/${tarefa.id}`} className=" float-left mr-3">
+                                                    <Link
+                                                        href={`/tarefa/${tarefa.id}`}
+                                                        className=" float-left mr-3"
+                                                    >
                                                         <PencilIcon className="w-6 h-6" />
                                                     </Link>
                                                 )}
-                                                <button className=" float-right ml-3" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setTarefas(tarefas.filter((t) => t.id !== tarefa.id));
-                                                    handleDeleteTarefa(tarefa.id);
-                                                }}>
+                                                <button
+                                                    className=" float-right ml-3"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setTarefas(
+                                                            tarefas.filter(
+                                                                (t) =>
+                                                                    t.id !==
+                                                                    tarefa.id
+                                                            )
+                                                        );
+                                                        handleDeleteTarefa(
+                                                            tarefa.id
+                                                        );
+                                                    }}
+                                                >
                                                     <TrashIcon className="w-6 h-6" />
                                                 </button>
                                             </>
