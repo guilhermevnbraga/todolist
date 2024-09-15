@@ -87,6 +87,23 @@ export default function Tarefas({
         console.log(data);
     };
 
+    const handleDeleteTarefa = async (id: number) => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/tarefa/delete`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id,
+                }),
+            }
+        );
+        const data = await response.json();
+        console.log(data);
+    };
+
     useEffect(() => {
         fetchMembro();
         fetchTarefas();
@@ -137,7 +154,11 @@ export default function Tarefas({
                                                         <PencilIcon className="w-6 h-6" />
                                                     </button>
                                                 )}
-                                                <button className=" float-right ml-3">
+                                                <button className=" float-right ml-3" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setTarefas(tarefas.filter((t) => t.id !== tarefa.id));
+                                                    handleDeleteTarefa(tarefa.id);
+                                                }}>
                                                     <TrashIcon className="w-6 h-6" />
                                                 </button>
                                             </>

@@ -81,3 +81,18 @@ export async function updateTarefa(req, res) {
         res.status(400).json({ error: error.message });
     }
 }
+
+export async function deleteTarefa(req, res) {
+    const { id } = req.body;
+    try {
+        await prisma.tarefa.delete({
+            where: {
+                id,
+            },
+        });
+
+        res.status(200).json({ message: "Tarefa deletada com sucesso" });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
