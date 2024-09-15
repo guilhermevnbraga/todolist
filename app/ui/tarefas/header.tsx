@@ -27,7 +27,7 @@ export default function Header({ name }: { name: string }) {
                 </ul>
                 <section className="flex w-1/3 rounded-xl items-center border-2">
                     <MagnifyingGlassIcon className="w-6 h-6 ml-1 mr-1"/>
-                    <input type="text" className="text-black w-11/12 h-full focus:outline-none px-1" placeholder="Pesquise um membro"/>
+                    <input type="text" className="text-black w-11/12 h-full focus:outline-none px-1" placeholder="Pesquise um membro pelo email"/>
                 </section>
                 <ul className="flex flex-col w-1/3 items-end">
                     <li>

@@ -19,15 +19,29 @@ export async function createTarefa(req, res) {
 }
 
 export async function getTarefas(req, res) {
-    const { membroId } = req.query;
+    const { email } = req.query;
     try {
         let tarefas;
-        if (membroId) {
-            tarefas = await prisma.tarefa.findMany({
+        if (email) {
+            const membro = await prisma.membro.findUnique({
                 where: {
-                    membroId,
+                    email,
                 },
             });
+
+            if (!membro) {
+                throw new Error("Membro não encontrado");
+            }
+
+            tarefas = await prisma.tarefa.findMany({
+                where: {
+                    membroId: membro.id,
+                },
+            });
+
+            if (!tarefas.length) {
+                throw new Error("Nenhuma tarefa encontrada");
+            }
         } else {
             tarefas = await prisma.tarefa.findMany();
         }

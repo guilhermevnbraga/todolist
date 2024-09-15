@@ -33,7 +33,7 @@ export default function Tarefas({ email }: { email: string }) {
 
     return (
         <section className="w-full flex p-4">
-            <ul className="grid grid-cols-5 gap-4 w-full">
+            <ul className="grid grid-cols-6 gap-4 w-full">
                 {tarefas.map((tarefa) => {
                     if (tarefa.prioridade === "MEDIA") {
                         tarefa.prioridade = "Média";
