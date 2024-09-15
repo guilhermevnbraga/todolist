@@ -10,7 +10,7 @@ export default function Header({ name }: { name: string }) {
         <header className="flex items-center justify-between p-4 bg-sky-700 text-white">
             <h1 className="font-bold text-2xl mr-12">To Do List</h1>
             <nav className="flex grow justify-between">
-                <ul className="flex space-x-4">
+                <ul className="flex space-x-4 items-center">
                     <li>
                         <Link className="hover:underline" href="/tarefas">
                             Lista de Tarefas
@@ -27,10 +27,10 @@ export default function Header({ name }: { name: string }) {
                         </button>
                     </li>
                 </ul>
-                <ul className="flex flex-col grow justify-end">
+                <ul className="flex flex-col grow items-end">
                     <li>
                         <button
-                            className="text-xl font-bold hover:underline active:scale-95 text-end w-full"
+                            className="text-xl font-bold hover:underline text-end w-full"
                             onClick={() => {
                                 setOpen(!open);
                             }}

@@ -35,7 +35,27 @@ export async function login(req, res) {
             return res.status(401).json({ error: "Credenciais inválidas" });
         }
 
-        res.status(200).json({ message: "Login realizado com sucesso", user: membro });
+        res.status(200).json({
+            message: "Login realizado com sucesso",
+            user: membro,
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export async function getMembroByEmail(req, res) {
+    const { email } = req.query;
+    try {
+        const membro = await prisma.membro.findUnique({
+            where: { email },
+        });
+
+        if (!membro) {
+            throw new Error("Membro não encontrado");
+        }
+
+        res.status(200).json(membro);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
