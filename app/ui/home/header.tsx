@@ -20,7 +20,7 @@ export default function Header({ name }: { name: string }) {
                         <button
                             className="hover:underline"
                             onClick={() =>
-                                signOut({ callbackUrl: "/register" })
+                                signOut({ callbackUrl: "/cadastro" })
                             }
                         >
                             Registrar Novo Membro

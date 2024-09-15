@@ -114,7 +114,7 @@ export default function Page() {
                     </button>
                 </form>
                 <Link
-                    href={"/register"}
+                    href={"/cadastro"}
                     className="font-light hover:underline decoration-gray-500 cursor-pointer text-gray-500"
                 >
                     Ainda não possui uma conta?
