@@ -41,7 +41,7 @@ export default function Header({
                         type="text"
                         className="text-black w-11/12 h-full focus:outline-none px-1"
                         placeholder="Pesquisar Membro por Email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.trim())}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") setTargetEmail(email);
                         }}
