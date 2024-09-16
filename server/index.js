@@ -14,6 +14,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/tarefa', tarefaRouter);
 app.use('/membro', membroRouter);
+app.route('/').get((req, res) => {
+  res.send('API em execução');
+}
 
 const PORT = 3001;
 app.listen(PORT, () => {
