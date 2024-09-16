@@ -5,14 +5,6 @@ import membroRouter from "./routes/membro.routes.js";
 
 const app = express();
 
-app.use((req, res, next) => {
-    if (req.method === "OPTIONS") {
-        res.status(200).send();
-    } else {
-        next();
-    }
-});
-
 const corsOptions = {
     origin: process.env.ORIGIN,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
