@@ -8,15 +8,12 @@ const app = express();
 const corsOptions = {
     origin: process.env.ORIGIN,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
-    allowedHeaders: [
-        "Access-Control-Allow-Headers",
-        "Content-Type",
-        "Authorization",
-    ],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
     optionsSuccessStatus: 204,
 };
 
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/tarefa", tarefaRouter);
