@@ -6,10 +6,10 @@
 
 */
 -- AlterTable
-ALTER TABLE `membro` ADD COLUMN `senha` VARCHAR(191) NOT NULL;
+ALTER TABLE `Membro` ADD COLUMN `senha` VARCHAR(191) NOT NULL;
 
 -- AlterTable
-ALTER TABLE `tarefa` ADD COLUMN `membroId` VARCHAR(191) NOT NULL;
+ALTER TABLE `Tarefa` ADD COLUMN `membroId` VARCHAR(191) NOT NULL;
 
 -- AddForeignKey
 ALTER TABLE `Tarefa` ADD CONSTRAINT `Tarefa_membroId_fkey` FOREIGN KEY (`membroId`) REFERENCES `Membro`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

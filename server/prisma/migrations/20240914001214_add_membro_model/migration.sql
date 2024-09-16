@@ -1,5 +1,5 @@
 -- AlterTable
-ALTER TABLE `tarefa` MODIFY `prioridade` ENUM('ALTA', 'MEDIA', 'BAIXA') NOT NULL DEFAULT 'BAIXA';
+ALTER TABLE `Tarefa` MODIFY `prioridade` ENUM('ALTA', 'MEDIA', 'BAIXA') NOT NULL DEFAULT 'BAIXA';
 
 -- CreateTable
 CREATE TABLE `Membro` (
