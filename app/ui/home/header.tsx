@@ -40,7 +40,7 @@ export default function Header({
                             onClick={() => {
                                 setOpen(!open);
                             }}
-                        >{`Olá ${name}!`}</button>
+                        >{`Olá, ${name}!`}</button>
                     </li>
                     {open && (
                         <li className="absolute top-12 right-0 font-bold bg-sky-700 w-[10%] 2xl:w-[7%] p-2 text-right text-sm">
