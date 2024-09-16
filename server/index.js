@@ -6,9 +6,8 @@ import membroRouter from "./routes/membro.routes.js";
 const app = express();
 
 const corsOptions = {
-    origin: '*',
+    origin: process.env.ORIGIN,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
-    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
     optionsSuccessStatus: 204,
 };
