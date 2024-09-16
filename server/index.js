@@ -7,7 +7,9 @@ const app = express();
 
 const corsOptions = {
     origin: process.env.ORIGIN,
-    optionsSuccessStatus: 200,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
+    credentials: true,
+    optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
@@ -15,7 +17,7 @@ app.use(express.json());
 app.use("/tarefa", tarefaRouter);
 app.use("/membro", membroRouter);
 app.get("/", (req, res) => {
-  res.json({ message: "API Rodando" });
+    res.json({ message: "API Rodando" });
 });
 
 const PORT = 3001;
