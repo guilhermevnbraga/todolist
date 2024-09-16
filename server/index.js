@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/tarefa", tarefaRouter);
 app.use("/membro", membroRouter);
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+  res.json({ message: "API Rodando" });
 });
 
 const PORT = 3001;
