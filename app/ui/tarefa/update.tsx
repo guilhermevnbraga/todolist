@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Input from "../Input";
-import Label from "../Label";
 
 interface Tarefa {
     id: number;

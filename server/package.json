@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "server": "nodemon --env-file .env index.js",
+    "build": "npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
