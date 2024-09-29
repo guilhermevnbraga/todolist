@@ -168,7 +168,7 @@ export default function Page() {
                     </Label>
                     <button
                         type="submit"
-                        className="font-bold w-full bg-yellow-500 text-white p-2 rounded mt-2 focus:outline-none"
+                        className="font-bold w-full bg-sky-500 text-white p-2 rounded mt-2 focus:outline-none"
                     >
                         Registrar
                     </button>
